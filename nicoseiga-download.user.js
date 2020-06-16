@@ -3,7 +3,7 @@
 // @namespace   https://github.com/taba256/nicoseiga-download
 // @description ニコニコ静画(マンガ)の作品を、zipファイルに圧縮してダウンロードできます。
 // @author      taba
-// @version     1.1.2
+// @version     1.1.3
 // @supportURL  https://github.com/taba256/nicoseiga-download/issues
 // @updateURL   https://github.com/taba256/nicoseiga-download/raw/master/nicoseiga-download.meta.js
 // @downloadURL https://github.com/taba256/nicoseiga-download/raw/master/nicoseiga-download.user.js
@@ -16,6 +16,8 @@
 // @connect     seiga.nicovideo.jp
 // @connect     nicoseiga.cdn.nimg.jp
 // @connect     dcdn.cdn.nimg.jp
+// @connect     manga-drm.nicoseiga.jp
+// @connect     manga-deliver.nicoseiga.jp
 // @require     https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js
 // ==/UserScript==
@@ -115,7 +117,7 @@
 				GM_xmlhttpRequest({method:"GET",url:page.url,responseType:"arraybuffer",onload:xhr=>{
 					const url=new URL(xhr.finalUrl);
 					let data=new Uint8Array(xhr.response);
-					if(url.hostname==="drm.nicoseiga.jp" || url.hostname==="nicoseiga.cdn.nimg.jp"){
+					if(url.hostname==="drm.nicoseiga.jp" || url.hostname==="nicoseiga.cdn.nimg.jp" || url.hostname==="manga-drm.nicoseiga.jp"){
 						const key=new Uint8Array(8);
 						const keystring=xhr.finalUrl.match(/[0-9a-fA-F]{40}/)[0];
 						for(let i=0;i<8;i++){
