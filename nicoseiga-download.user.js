@@ -118,11 +118,11 @@
 				GM_xmlhttpRequest({method:"GET",url:page.url,responseType:"arraybuffer",onload:xhr=>{
 					const url=new URL(xhr.finalUrl);
 					let data=new Uint8Array(xhr.response);
-					if(url.hostname==="drm.nicoseiga.jp" || url.hostname==="nicoseiga.cdn.nimg.jp" || url.hostname==="manga-drm.nicoseiga.jp"){
+					const keystring=xhr.finalUrl.match(/[0-9a-fA-F]{40}/);
+					if(keystring!=null){
 						const key=new Uint8Array(8);
-						const keystring=xhr.finalUrl.match(/[0-9a-fA-F]{40}/)[0];
 						for(let i=0;i<8;i++){
-							key[i]=parseInt(keystring.substr(i*2,2),16);
+							key[i]=parseInt(keystring[0].substr(i*2,2),16);
 						}
 						data=data.map((v,i)=>v^key[i&7]);
 					}
