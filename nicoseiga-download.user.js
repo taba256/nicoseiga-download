@@ -18,6 +18,7 @@
 // @connect     dcdn.cdn.nimg.jp
 // @connect     manga-drm.nicoseiga.jp
 // @connect     manga-deliver.nicoseiga.jp
+// @connect     drm.cdn.nicomanga.jp
 // @require     https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.5/jszip.min.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js
 // ==/UserScript==
