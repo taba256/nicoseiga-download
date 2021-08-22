@@ -3,7 +3,7 @@
 // @namespace   https://github.com/taba256/nicoseiga-download
 // @description ニコニコ静画(マンガ)の作品を、zipファイルに圧縮してダウンロードできます。
 // @author      taba
-// @version     1.1.6
+// @version     1.1.7
 // @supportURL  https://github.com/taba256/nicoseiga-download/issues
 // @updateURL   https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.meta.js
 // @downloadURL https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js
@@ -109,10 +109,15 @@
 			const args = unsafeWindow.args;
 			const di = new DownloadInfomation(episode_title);
 
-			await Promise.all(args.pages.map(page => new Promise((resolve, reject) => {
-				const dl = di.addDownload((new URL(page.url)).pathname.replace(/.*\//, ""), reject);
+			await Promise.all(args.pages.map((page, index) => new Promise((resolve, reject) => {
+				let url = page.url;
+				let thumbWebpMatch = /^https:\/\/deliver\.cdn\.nicomanga\.jp\/thumb\/(aHR0[A-Za-z0-9+=]+)\.webp$/.exec(url);
+				if (thumbWebpMatch != null) {
+					url = atob(thumbWebpMatch[1]);
+				}
+				const dl = di.addDownload((new URL(url)).pathname.replace(/.*\//, ""), reject);
 				GM_xmlhttpRequest({
-					method: "GET", url: page.url, responseType: "arraybuffer", onload: xhr => {
+					method: "GET", url: url, responseType: "arraybuffer", onload: xhr => {
 						const url = new URL(xhr.finalUrl);
 						let data = new Uint8Array(xhr.response);
 						const keystring = xhr.finalUrl.match(/[0-9a-fA-F]{40}/);
@@ -123,7 +128,7 @@
 							}
 							data = data.map((v, i) => v ^ key[i & 7]);
 						}
-						dir.file(page.image_id + ".jpg", data);
+						dir.file(("0000" + index).slice(-4) + "_" + page.image_id + ".jpg", data);
 						resolve();
 						dl.downloadComplete();
 					},

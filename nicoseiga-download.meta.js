@@ -3,7 +3,7 @@
 // @namespace   https://github.com/taba256/nicoseiga-download
 // @description ニコニコ静画(マンガ)の作品を、zipファイルに圧縮してダウンロードできます。
 // @author      taba
-// @version     1.1.6
+// @version     1.1.7
 // @supportURL  https://github.com/taba256/nicoseiga-download/issues
 // @updateURL   https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.meta.js
 // @downloadURL https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js
