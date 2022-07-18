@@ -3,7 +3,7 @@
 // @namespace   https://github.com/taba256/nicoseiga-download
 // @description ニコニコ静画(マンガ)の作品を、zipファイルに圧縮してダウンロードできます。
 // @author      taba
-// @version     1.1.7
+// @version     1.1.8
 // @supportURL  https://github.com/taba256/nicoseiga-download/issues
 // @updateURL   https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.meta.js
 // @downloadURL https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js
@@ -128,7 +128,10 @@
 							}
 							data = data.map((v, i) => v ^ key[i & 7]);
 						}
-						dir.file(("0000" + index).slice(-4) + "_" + page.image_id + ".jpg", data);
+                        // データが"RIFF"で始まっていたら、webp画像である
+                        const RIFF = new Uint8Array([82, 73, 70, 70]);
+                        const is_webp = RIFF.every((e, i) => e == data[i]);
+						dir.file(("0000" + index).slice(-4) + "_" + page.image_id + (is_webp ? ".webp" : ".jpg"), data);
 						resolve();
 						dl.downloadComplete();
 					},
