@@ -5,4 +5,4 @@
 Firefox + TamperMonkeyで開発しています。他のブラウザやアドオンで動くかどうかは知らない。
 
 ---
-インストールは https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js から
+インストールは [https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js](https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js) から
