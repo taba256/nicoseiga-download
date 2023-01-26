@@ -3,7 +3,7 @@
 // @namespace   https://github.com/taba256/nicoseiga-download
 // @description ニコニコ静画(マンガ)の作品を、zipファイルに圧縮してダウンロードできます。
 // @author      taba
-// @version     1.1.8
+// @version     1.1.9
 // @supportURL  https://github.com/taba256/nicoseiga-download/issues
 // @updateURL   https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.meta.js
 // @downloadURL https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js
@@ -111,10 +111,6 @@
 
 			await Promise.all(args.pages.map((page, index) => new Promise((resolve, reject) => {
 				let url = page.url;
-				let thumbWebpMatch = /^https:\/\/deliver\.cdn\.nicomanga\.jp\/thumb\/(aHR0[A-Za-z0-9+=]+)\.webp$/.exec(url);
-				if (thumbWebpMatch != null) {
-					url = atob(thumbWebpMatch[1]);
-				}
 				const dl = di.addDownload((new URL(url)).pathname.replace(/.*\//, ""), reject);
 				GM_xmlhttpRequest({
 					method: "GET", url: url, responseType: "arraybuffer", onload: xhr => {
@@ -128,9 +124,9 @@
 							}
 							data = data.map((v, i) => v ^ key[i & 7]);
 						}
-                        // データが"RIFF"で始まっていたら、webp画像である
-                        const RIFF = new Uint8Array([82, 73, 70, 70]);
-                        const is_webp = RIFF.every((e, i) => e == data[i]);
+						// データが"RIFF"で始まっていたら、webp画像である
+						const RIFF = new Uint8Array([82, 73, 70, 70]);
+						const is_webp = RIFF.every((e, i) => e == data[i]);
 						dir.file(("0000" + index).slice(-4) + "_" + page.image_id + (is_webp ? ".webp" : ".jpg"), data);
 						resolve();
 						dl.downloadComplete();
