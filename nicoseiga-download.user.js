@@ -7,7 +7,7 @@
 // @supportURL  https://github.com/taba256/nicoseiga-download/issues
 // @updateURL   https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.meta.js
 // @downloadURL https://github.com/taba256/nicoseiga-download/raw/main/nicoseiga-download.user.js
-// @match       *://seiga.nicovideo.jp/watch/mg*
+// @match       *://manga.nicovideo.jp/watch/mg*
 // @grant       unsafeWindow
 // @grant       GM_registerMenuCommand
 // @grant       GM_xmlhttpRequest
